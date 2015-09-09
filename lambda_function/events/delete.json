@@ -1,0 +1,18 @@
+{
+  "RequestType": "Delete",
+  "RequestId": "123456",
+  "ResponseURL": "pre-signed-url-for-create-response",
+  "ResourceType": "Custom::ScheduleTask",
+  "LogicalResourceId": "123456",
+  "PhysicalResourceId": "foobar/text/file_be2291f9-0f0e-4a9a-8f34-f99f15523481.sh",
+  "StackId": "arn:aws:cloudformation:us-east-1:namespace:stack/stack-name/guid",
+  "ResourceProperties": {
+    "ConfigFileS3Bucket" : "elevateinvest-481940266272-config-file-test",
+    "Filename" : "foobar/text/file.sh",
+    "Region" : "eu-west-1",
+    "Content" : "#!/bin/bash\naws ec2 describe-tags --region --filters ",
+    "Mode"  : "000777",
+    "Owner" : "root",
+    "Group" : "root"
+  }
+}

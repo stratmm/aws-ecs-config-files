@@ -1,0 +1,17 @@
+{
+  "RequestType": "Create",
+  "RequestId": "123456",
+  "ResponseURL": "pre-signed-url-for-create-response",
+  "ResourceType": "Custom::ScheduleTask",
+  "LogicalResourceId": "123456",
+  "StackId": "arn:aws:cloudformation:us-east-1:namespace:stack/stack-name/guid",
+  "ResourceProperties": {
+    "ConfigFileS3Bucket" : "aws-ecs-config-files-configfiles3bucket-1t7qrb8x9kqai",
+    "Filename" : "foobar/elasticsaerch/config/file.sh",
+    "Region" : "eu-west-1",
+    "Content" : "#!/bin/bash\naws ec2 describe-tags --region --filters ",
+    "Mode"  : "000777",
+    "Owner" : "root",
+    "Group" : "root"
+  }
+}

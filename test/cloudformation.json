@@ -1,0 +1,74 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "Launches a ECSCluster Cluster with ECS Support",
+
+  "Parameters" : {
+
+    "StackOutputsArn" : {
+      "Type" : "String"
+    }
+
+  },
+
+  "Mappings" : {
+
+  },
+
+  "Resources" : {
+
+    "ConfigFiles": {
+      "Type": "Custom::StackOutputs",
+      "Properties": {
+        "ServiceToken": { "Ref" : "StackOutputsArn" },
+        "StackName" : "aws-ecs-config-files"
+      }
+    },
+
+    "ECSCluster": {
+      "Type": "Custom::StackOutputs",
+      "Properties": {
+        "ServiceToken": { "Ref" : "StackOutputsArn" },
+        "StackName" : "ecs-cluster"
+      }
+    },
+
+
+    "TestConfigFile" : {
+      "Type" : "AWS::CloudFormation::CustomResource",
+      "Properties" : {
+        "ServiceToken" : { "Fn::GetAtt": [ "ConfigFiles", "TokenArn" ] },
+        "ConfigFileS3Bucket" : { "Fn::GetAtt": [ "ConfigFiles", "ConfigFileS3Bucket" ] },
+        "Filename" : "testfiles/config/file.sh",
+        "Region" : { "Ref" : "AWS::Region"},
+        "Content" : { "Fn::Join" : ["", [
+                  "[main]\n",
+                  "ECS_CLUSTER=", { "Fn::GetAtt": [ "ECSCluster", "ECSCluster" ] }, "\n",
+                  "ECS_LOGLEVEL=info\n",
+                  "ECS_DATADIR=/ext4/cluster/data\n",
+                  "ECS_CHECKPOINT=true\n",
+                  "ECS_LOGFILE=/ext4/cluster/log/ecs-agent.log\n",
+                  "ECS_UPDATE_DOWNLOAD_DIR=/ext4/cluster/cache\n",
+                  "ECS_ENGINE_AUTH_TYPE=docker\n",
+                  "FOOFOOFOOFOO=barbarbar\n",
+                  "XXXXX=YYYYYY\n",
+                  "XXXXX=YYYYYY\n"
+                ]]},
+        "Mode"  : "000777",
+        "Owner" : "root",
+        "Group" : "root"
+      }
+    }
+
+  },
+
+  "Outputs" : {
+
+    "TestConfigFile" : {
+      "Description" : "The test file that was created",
+      "Value" : { "Ref" : "TestConfigFile" }
+    }
+
+  }
+
+}
