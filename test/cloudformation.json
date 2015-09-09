@@ -52,6 +52,7 @@
                   "ECS_ENGINE_AUTH_TYPE=docker\n",
                   "FOOFOOFOOFOO=barbarbar\n",
                   "XXXXX=YYYYYY\n",
+                  "XXXXX=YYYYYY\n",
                   "XXXXX=YYYYYY\n"
                 ]]},
         "Mode"  : "000777",
